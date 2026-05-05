@@ -18,26 +18,27 @@ regions_limits = {
 def id_region(id_pokemon):
     match id_pokemon:
         case id if id <= 151:
-            return "Kanto"
+            return "Kanto", "1ª Geração"
         case id if id <= 251:
-            return "Johto"
+            return "Johto", "2ª Geração"
         case id if id <= 386:
-            return "Hoenn"
+            return "Hoenn", "3ª Geração"
         case id if id <= 493:
-            return "Sinnoh"
+            return "Sinnoh", "4ª Geração"
         case id if id <= 649:
-            return "Unova"
+            return "Unova", "5ª Geração"
         case id if id <= 721:
-            return "Kalos"
+            return "Kalos", "6ª Geração"
         case id if id <= 809:
-            return "Alola"
+            return "Alola", "7ª Geração"
         case id if id <= 905:
-            return "Galar"
+            return "Galar", "8ª Geração"
         case _:
-            return "Paldea"
+            return "Paldea", "9ª Geração"
 
 def extract_data(choice="Todas"):
     pokemons = []
+    regiao, geracao = id_region(data["id"])
     ## choice = input("Qual será a região?").capitalize()
 
     if choice in regions_limits:
@@ -56,7 +57,8 @@ def extract_data(choice="Todas"):
             pokemon = {
                 "Nome": data["name"].capitalize(),
                 "ID": data["id"],
-                "Regiao": id_region(data["id"]),
+                "Geracao": geracao,
+                "Regiao": regiao,
                 "Tipo": data["types"][0]["type"]["name"].capitalize(),
                 "HP": data["stats"][0]["base_stat"],
                 "Ataque": data["stats"][1]["base_stat"],
