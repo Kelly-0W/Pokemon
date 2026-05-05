@@ -71,6 +71,9 @@ def extract_data(choice="Todas"):
     
     df = pd.DataFrame(pokemons)
 
+    ## if not os.path.exists("data"):
+        ## os.makedirs("data")
+
     df.to_excel("data/base_pokemon.xlsx", index=False)
     print("Sucesso! O 'Estoque' de dados foi atualizado em data/base_pokemon.xlsx")
 
