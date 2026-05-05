@@ -38,7 +38,6 @@ def id_region(id_pokemon):
 
 def extract_data(choice="Todas"):
     pokemons = []
-    regiao, geracao = id_region(data["id"])
     ## choice = input("Qual será a região?").capitalize()
 
     if choice in regions_limits:
@@ -53,7 +52,8 @@ def extract_data(choice="Todas"):
 
         if response.status_code == 200:
             data = response.json()
-
+            regiao, geracao = id_region(data["id"])
+            
             pokemon = {
                 "Nome": data["name"].capitalize(),
                 "ID": data["id"],
