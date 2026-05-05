@@ -2,17 +2,16 @@ name: Pokemon ETL Pipeline
 
 on:
   push:
-    branches: [ main ]  # Roda toda vez que você enviar código para a branch main
+    branches: [ main ]  
   schedule:
-    - cron: '0 0 * * 0' # Roda automaticamente todo domingo à meia-noite (opcional)
-
+    - cron: '0 0 * * 0' 
 jobs:
   build:
-    runs-on: ubuntu-latest # O GitHub vai abrir um computador com Linux para nós
+    runs-on: ubuntu-latest 
 
     steps:
     - name: Checkout do código
-      uses: actions/checkout@v3 # Baixa seu código do GitHub para esse PC temporário
+      uses: actions/checkout@v3 
 
     - name: Configurar Python
       uses: actions/setup-python@v4
