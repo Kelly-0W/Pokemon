@@ -36,9 +36,10 @@ def id_region(id_pokemon):
         case _:
             return "Paldea", "9ª Geração"
 
+
 def extract_data(choice="Todas"):
     pokemons = []
-    ## choice = input("Qual será a região?").capitalize()
+    # choice = input("Qual será a região?").capitalize()
 
     if choice in regions_limits:
         start, end = regions_limits[choice]
@@ -53,26 +54,34 @@ def extract_data(choice="Todas"):
         if response.status_code == 200:
             data = response.json()
             regiao, geracao = id_region(data["id"])
-            
+
+            tipo1 = data["types"][0]["type"]["name"].capitalize()
+            tipo2 = data["types"][1]["type"]["name"].capitalize() if len(
+                data["types"]) > 1 else None
+
             pokemon = {
                 "Nome": data["name"].capitalize(),
                 "ID": data["id"],
                 "Geracao": geracao,
                 "Regiao": regiao,
-                "Tipo": data["types"][0]["type"]["name"].capitalize(),
+                "Tipo 1": tipo1,
+                "Tipo 2": tipo2,
                 "HP": data["stats"][0]["base_stat"],
                 "Ataque": data["stats"][1]["base_stat"],
                 "Defesa": data["stats"][2]["base_stat"],
+                "Atq_Especial": data["stats"][3]["base_stat"],
+                "Def_Especial": data["stats"][4]["base_stat"],
                 "Velocidade": data["stats"][5]["base_stat"]
             }
-            
+
             pokemons.append(pokemon)
             print(f"Item {i}: Pokémon {pokemon['Nome']} catalogado!")
-    
+
     df = pd.DataFrame(pokemons)
 
-    ## if not os.path.exists("data"):
-        ## os.makedirs("data")
+    # Descomente isso se for rodar em uma máquina nova que não tem a pasta 'data' criada
+    # if not os.path.exists("data"):
+    # os.makedirs("data")
 
     df.to_excel("data/base_pokemon.xlsx", index=False)
     print("Sucesso! O 'Estoque' de dados foi atualizado em data/base_pokemon.xlsx")
